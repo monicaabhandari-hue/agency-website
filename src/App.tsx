@@ -95,7 +95,7 @@ const geoUrl =
                     }}
                   />
   
-                  {stateAbbr[geo.id] && (
+                    {stateAbbr[geo.id as keyof typeof stateAbbr] && (
                     <Marker coordinates={geoCentroid(geo)}>
                       <text
                         textAnchor="middle"
@@ -106,7 +106,7 @@ const geoUrl =
                           pointerEvents: "none"
                         }}
                       >
-                        {stateAbbr[geo.id]}
+                        {stateAbbr[geo.id as keyof typeof stateAbbr]}
                       </text>
                     </Marker>
                   )}
