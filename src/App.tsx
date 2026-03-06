@@ -1,3 +1,6 @@
+import logo from "./assets/logo.png"
+import { useState } from "react"
+
 import aetnaLogo from "./assets/carriers/aetna.png"
 import ambetterLogo from "./assets/carriers/ambetter.png"
 import americanequityLogo from "./assets/carriers/americanequity.png"
@@ -19,6 +22,7 @@ import examLogo from "./assets/carriers/exam.png"
 import neishlossLogo from "./assets/carriers/neishloss.png"
 import caresourceLogo from "./assets/carriers/care.png"
 import molinaLogo from "./assets/carriers/molina.png"
+import integrityLogo from "./assets/carriers/integrity.png"
 
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
 import { geoCentroid } from "d3-geo"
@@ -47,6 +51,7 @@ const carriers = [
   { name: "NeishLoss", logo: neishlossLogo },
   { name: "Caresource", logo: caresourceLogo },
   { name: "Molina", logo: molinaLogo },
+  { name: "Integrity", logo: integrityLogo },
 ]
 
 const geoUrl =
@@ -86,11 +91,11 @@ const geoUrl =
                   <Geography
                     geography={geo}
                     fill={isCovered ? "#0284c7" : "#e2e8f0"}
-                    stroke="#ffffff"
+                    stroke="#0ea5e9"
                     strokeWidth={0.7}
                     style={{
                       default: { outline: "none" },
-                      hover: { fill: isCovered ? "#0284c7" : "#d1d5db" },
+                      hover: { fill: isCovered ? "#0369a1" : "#d1d5db" },
                       pressed: { outline: "none" }
                     }}
                   />
@@ -121,24 +126,49 @@ const geoUrl =
 
 
 function App() {
+  const [status, setStatus] = useState("")
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
+
+  const form = event.target
+  const data = new FormData(form)
+
+  const response = await fetch("https://formspree.io/f/xkoqnvky", {
+    method: "POST",
+    body: data,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+
+  if (response.ok) {
+    setStatus("SUCCESS")
+    form.reset()
+  } else {
+    setStatus("ERROR")
+  }
+}
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-10 py-6 lg:px-12">
           <div className="flex items-center gap-2">
-          <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-sky-600 text-white">
-              <span className="text-lg font-semibold">D</span>
-            </div>
+          <img
+  src={logo}
+  alt="Dahal Agency LLC Logo"
+  className="h-20 w-auto object-contain"
+/>
             <div>
-              <div className="text-base font-semibold tracking-tight text-slate-900">
-                Dahal Agency LLC
-              </div>
+            <div className="text-2xl font-bold text-sky-700">
+  Dahal Agency LLC
+</div>
               <div className="text-xs text-slate-500">
                 Independent Insurance Professionals
               </div>
             </div>
           </div>
-          <nav className="flex items-center gap-8 text-base font-medium text-slate-700">
+          <nav className="flex items-center gap-8 text-base font-semibold text-slate-700">
           <a href="#services" className="relative hover:text-sky-600 transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-sky-600 hover:after:w-full after:transition-all"
   >
   Services
@@ -146,15 +176,15 @@ function App() {
 
 <a href="#carriers" className="relative hover:text-sky-600 transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-sky-600 hover:after:w-full after:transition-all"
   >
-  Our Carriers
+  Our Partners
 </a>
 <a
   href="#coverage"
   className="relative hover:text-sky-600 transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-sky-600 hover:after:w-full after:transition-all"
 >
-  Coverage
+  Service Area
 </a>
-<a href="#consultation" className="relative hover:text-sky-600 transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-sky-600 hover:after:w-full after:transition-all"
+<a href="#booking" className="relative hover:text-sky-600 transition after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-sky-600 hover:after:w-full after:transition-all"
   >
   Book a Consultation
 </a>
@@ -173,12 +203,109 @@ function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pt-16">
-        {/* Hero Section */}
-        <section
+      <main className="w-full px-4 sm:px-8 lg:px-16 pb-16 pt-10">
+
+{/* Hero Section */}
+<section
+  aria-labelledby="hero-title"
+  className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-900 via-sky-800 to-sky-700 px-10 py-14 text-white shadow-xl"
+>
+
+<p className="text-xl font-bold uppercase tracking-[0.25em] text-sky-200 text-center mb-10">
+  Trusted Independent Insurance Agency
+</p>
+
+<div className="flex flex-col lg:flex-row items-start justify-between gap-12">
+
+{/* LEFT SIDE TEXT */}
+
+<div className="max-w-2xl space-y-6">
+
+<h1
+id="hero-title"
+className="text-4xl font-semibold tracking-tight sm:text-4.5xl"
+>
+Protecting What Matters Most
+</h1>
+
+<p className="text-sky-100 leading-relaxed">
+Dahal Agency LLC partners with leading national carriers to provide
+personalized life and health insurance solutions so you can protect
+your family, your income, and your future with confidence.
+</p>
+
+<ul className="grid gap-3 text-sm text-sky-100 sm:grid-cols-2 pt-2">
+
+<li className="flex items-start gap-2">
+<span className="text-sky-300">✓</span>
+Tailored plans for families, individuals, and small businesses
+</li>
+
+<li className="flex items-start gap-2">
+<span className="text-sky-300">✓</span>
+Access to multiple A-rated carriers
+</li>
+
+<li className="flex items-start gap-2">
+<span className="text-sky-300">✓</span>
+Guidance on coverage, premiums, and benefits
+</li>
+
+<li className="flex items-start gap-2">
+<span className="text-sky-300">✓</span>
+Ongoing support when life changes or claims arise
+</li>
+
+</ul>
+
+</div>
+
+
+{/* RIGHT SIDE ICONS */}
+
+<div className="hidden lg:grid grid-cols-2 gap-4 mt-28">
+
+<div className="flex items-center gap-3 rounded-lg bg-white/10 px-4 py-2 backdrop-blur border border-white/20 hover:bg-white/20 transition">
+<span className="text-lg">❤</span>
+<span className="text-sm font-medium">Life Insurance</span>
+</div>
+
+<div className="flex items-center gap-3 rounded-lg bg-white/10 px-4 py-2 backdrop-blur border border-white/20 hover:bg-white/20 transition">
+<span className="text-lg">+</span>
+<span className="text-sm font-medium">Health Coverage</span>
+</div>
+
+<div className="flex items-center gap-3 rounded-lg bg-white/10 px-4 py-2 backdrop-blur border border-white/20 hover:bg-white/20 transition">
+<span className="text-lg">🚗</span>
+<span className="text-sm font-medium">Auto Insurance</span>
+</div>
+
+<div className="flex items-center gap-3 rounded-lg bg-white/10 px-4 py-2 backdrop-blur border border-white/20 hover:bg-white/20 transition">
+<span className="text-lg">🏠</span>
+<span className="text-sm font-medium">Home Insurance</span>
+</div>
+{/* Quote */}
+<div className="col-span-2 mt-22 text-center">
+
+<div className="h-px w-20 bg-white/30 mx-auto mb-3"></div>
+
+<p className="text-xs text-sky-200 tracking-wide">
+  One agency. Multiple carriers. Personalized protection for every stage of life.
+</p>
+
+</div>
+</div>
+
+</div>
+
+</section>
+        {/*  D Hero Section */}
+        {/*<section
           aria-labelledby="hero-title"
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-900 via-sky-800 to-slate-900 px-6 py-12 text-white shadow-xl sm:px-10 lg:px-14"
         >
+          //className="relative overflow-hidden rounded-3xl bg-[#0B2D4D] px-10 py-16 text-white shadow-xl"
+
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -left-24 top-10 h-40 w-40 rounded-full bg-sky-500/20 blur-3xl" />
             <div className="absolute -right-10 bottom-0 h-44 w-44 rounded-full bg-sky-300/10 blur-3xl" />
@@ -192,7 +319,7 @@ function App() {
               </p>
               <h1
                 id="hero-title"
-                className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl"
+                className="text-4xl font-bold tracking-tight lg:text-5xl whitespace-nowrap"
               >
                 Protecting What Matters Most
               </h1>
@@ -231,22 +358,10 @@ function App() {
                 </li>
               </ul>
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a
-                  href="#booking"
-                  className="inline-flex items-center justify-center rounded-full bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-sky-900/40 transition hover:-translate-y-0.5 hover:bg-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
-                >
-                  Book a Consultation
-                </a>
-                <a
-                  href="#contact"
-                  className="text-xs font-medium text-sky-100 underline-offset-4 hover:text-white sm:text-sm"
-                >
-                  Have questions? Talk to an advisor
-                </a>
               </div>
-            </div>
+            </div>*/}
 
-            <div className="relative hidden h-full min-h-[260px] rounded-2xl border border-sky-200/15 bg-white/5 p-5 shadow-inner shadow-sky-950/40 backdrop-blur-sm lg:block">
+            {/*<div className="relative hidden h-full min-h-[260px] rounded-2xl border border-sky-200/15 bg-white/5 p-5 shadow-inner shadow-sky-950/40 backdrop-blur-sm lg:block">
               <div className="mb-5 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-medium text-sky-100">
@@ -292,7 +407,7 @@ function App() {
               </dl>
             </div>
           </div>
-        </section>
+        </section>*/}
 
         {/* Carriers Section */}
         <section
@@ -304,12 +419,12 @@ function App() {
             <div>
               <h2
                 id="carriers-title"
-                className="text-sm font-semibold tracking-tight text-slate-900 sm:text-base"
+                className="text-sm font-semibold tracking-tight text-sky-900 sm:text-base"
               >
                 Our Carrier Partners
               </h2>
               <p className="max-w-xl text-xs text-slate-600 sm:text-sm">
-                Dahal Agency LLC works with a broad network of respected
+                Dahal Agency LLC works with a broad network of top-rated
                 insurance carriers to match you with coverage that fits your
                 needs and budget.
               </p>
@@ -329,7 +444,7 @@ function App() {
       behavior: "smooth",
     })
   }
-  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blurbg-white/90 backdrop-blur shadow-md border border-slate-200 hover:bg-slate-100"
+  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-md border border-slate-200 hover:bg-slate-100"
 >
   ‹
 </button>
@@ -375,7 +490,7 @@ function App() {
             <div>
               <h2
                 id="services-title"
-                className="text-sm font-semibold tracking-tight text-slate-900 sm:text-base"
+                className="text-sm font-semibold tracking-tight text-sky-900 sm:text-base"
               >
                 Insurance Services
               </h2>
@@ -394,7 +509,7 @@ function App() {
                   <span className="text-lg">❤</span>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold tracking-tight text-slate-900">
+                  <h3 className="text-sm font-semibold tracking-tight text-sky-900">
                     Life Insurance
                   </h3>
                   <p className="text-[11px] text-slate-500 sm:text-xs">
@@ -428,7 +543,7 @@ function App() {
                   <span className="text-lg">➕</span>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold tracking-tight text-slate-900">
+                  <h3 className="text-sm font-semibold tracking-tight text-sky-900">
                     Health Insurance
                   </h3>
                   <p className="text-[11px] text-slate-500 sm:text-xs">
@@ -458,6 +573,80 @@ function App() {
           </div>
         </section>
 
+      {/* Additional Coverage Section */}
+
+<section
+  id="additional"
+  className="mt-16 space-y-6"
+>
+
+<h2 className="text-xl font-semibold text-sky-900">
+Other Coverage Options
+</h2>
+
+<p className="text-sm text-slate-600 max-w-xl">
+Looking for auto, home, renters, or business insurance? Visit our partner
+platform to explore additional coverage options and get a quote.
+</p>
+
+<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+<a
+href="https://brightway.com/agencies/pa/harrisburg/0735"
+target="_blank"
+rel="noopener noreferrer"
+className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-sky-200 transition"
+>
+<div className="text-2xl mb-2">🚗</div>
+<h3 className="font-semibold text-sky-900">Auto Insurance</h3>
+<p className="text-xs text-slate-500 mt-1">
+Compare coverage and rates.
+</p>
+</a>
+
+<a
+href="https://brightway.com/agencies/pa/harrisburg/0735"
+target="_blank"
+rel="noopener noreferrer"
+className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-sky-200 transition"
+>
+<div className="text-2xl mb-2">🏠</div>
+<h3 className="font-semibold text-sky-900">Home Insurance</h3>
+<p className="text-xs text-slate-500 mt-1">
+Protect your property and belongings.
+</p>
+</a>
+
+<a
+href="https://brightway.com/agencies/pa/harrisburg/0735"
+target="_blank"
+rel="noopener noreferrer"
+className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-sky-200 transition"
+>
+<div className="text-2xl mb-2">🏢</div>
+<h3 className="font-semibold text-sky-900">Renters Insurance</h3>
+<p className="text-xs text-slate-500 mt-1">
+Coverage for renters and apartments.
+</p>
+</a>
+
+<a
+href="https://brightway.com/agencies/pa/harrisburg/0735"
+target="_blank"
+rel="noopener noreferrer"
+className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-sky-200 transition"
+>
+<div className="text-2xl mb-2">💼</div>
+<h3 className="font-semibold text-sky-900">Business Insurance</h3>
+<p className="text-xs text-slate-500 mt-1">
+Protection for small businesses.
+</p>
+</a>
+
+</div>
+
+</section>
+
 {/* Coverage Map Section */}
 
 <section
@@ -466,7 +655,7 @@ function App() {
   className="mt-16 space-y-6"
 >
 
-<h2 className="text-xl font-semibold text-slate-900">
+<h2 className="text-xl font-semibold text-sky-900">
   States We Serve
 </h2>
 
@@ -494,7 +683,7 @@ function App() {
             <div>
               <h2
                 id="booking-title"
-                className="text-sm font-semibold tracking-tight text-slate-900 sm:text-base"
+                className="text-sm font-semibold tracking-tight text-sky-900 sm:text-base"
               >
                 Schedule a Free Consultation
               </h2>
@@ -509,7 +698,7 @@ function App() {
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div className="border-b border-slate-200 bg-slate-50/80 px-4 py-3 sm:px-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs font-medium text-slate-800 sm:text-sm">
+                <p className="text-xs font-medium text-sky-800 sm:text-sm">
                   Online Calendar
                 </p>
                 <p className="text-[11px] text-slate-500 sm:text-xs">
@@ -517,8 +706,8 @@ function App() {
                 </p>
               </div>
             </div>
-            <div className="bg-slate-900/3 px-3 pb-4 pt-3 sm:px  -">
-              <div className="relative min-h-[420px] w-full overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div className="bg-slate-900/3 px-3 pb-4 pt-3 sm:px-5">
+            <div className="relative min-h-[420px] w-full overflow-hidden rounded-xl border border-slate-200/80 bg-white">
                 <iframe
                   title="Book a consultation with Dahal Agency LLC"
                   src="https://calendly.com/contact-dahalagency/consultation"
@@ -540,7 +729,7 @@ function App() {
             <div>
               <h2
                 id="contact-title"
-                className="text-sm font-semibold tracking-tight text-slate-900 sm:text-base"
+                className="text-sm font-semibold tracking-tight text-sky-900 sm:text-base"
               >
                 Contact Dahal Agency LLC
               </h2>
@@ -549,16 +738,24 @@ function App() {
                 your questions or prepare a personalized quote.
               </p>
             </div>
+            {status === "SUCCESS" && (
+  <div className="rounded-lg border border-green-300 bg-green-100 p-3 text-sm text-green-800">
+    ✅ Thank you! A Dahal Agency representative will contact you shortly.
+  </div>
+)}
+
+{status === "ERROR" && (
+  <div className="rounded-lg border border-red-300 bg-red-100 p-3 text-sm text-red-800">
+    ❌ Something went wrong. Please try again.
+  </div>
+)}
 
             <form
-              className="space-y-4 rounded-2xl border border-slate-200 bg-white p-10 shadow-sm"
-              onSubmit={(event) => {
-                event.preventDefault()
-                alert(
-                  'Thank you for reaching out to Dahal Agency LLC. A representative will contact you shortly.'
-                )
-              }}
-            >
+  className="space-y-4 rounded-2xl border border-slate-200 bg-white p-10 shadow-sm"
+  onSubmit={handleSubmit}
+>
+<input type="hidden" name="_subject" value="New Dahal Agency Website Lead" />
+
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label
@@ -610,6 +807,22 @@ function App() {
                   />
                 </div>
                 <div className="space-y-1.5">
+  <label className="text-xs font-medium text-slate-700">
+    Best Time to Call
+  </label>
+
+  <select
+  name="call_time"
+  className="block w-full h-[42px] cursor-pointer rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 shadow-sm outline-none ring-sky-500/0 transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 sm:text-sm"
+>
+    <option value="">Select preferred time</option>
+    <option value="morning">Morning (8AM – 12PM)</option>
+    <option value="afternoon">Afternoon (12PM – 5PM)</option>
+    <option value="evening">Evening (5PM – 8PM)</option>
+    <option value="anytime">Anytime</option>
+  </select>
+</div>
+                <div className="space-y-1.5">
                   <label
                     htmlFor="interest"
                     className="text-xs font-medium text-slate-700"
@@ -619,9 +832,11 @@ function App() {
                   <select
                     id="interest"
                     name="interest"
-                    className="block w-full cursor-pointer rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 shadow-sm outline-none ring-sky-500/0 transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 sm:text-sm"
-                    defaultValue="life"
-                  >
+ className="block w-full h-[42px] cursor-pointer rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 shadow-sm outline-none ring-sky-500/0 transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 sm:text-sm"
+ default = "Life"
+>
+
+
                     <option value="life">Life Insurance</option>
                     <option value="health">Health Insurance</option>
                     <option value="both">Life &amp; Health</option>
@@ -661,7 +876,7 @@ function App() {
           </div>
 
           <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="text-sm font-semibold tracking-tight text-slate-900">
+            <h3 className="text-sm font-semibold tracking-tight text-sky-900">
               Office & Contact Details
             </h3>
             <dl className="space-y-3 text-xs text-slate-600 sm:text-sm">
@@ -773,25 +988,11 @@ function App() {
               </h3>
               <div className="mt-2 flex gap-2">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61552252583671"
                   aria-label="Visit Dahal Agency on Facebook"
                   className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-[13px] text-slate-600 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
                 >
                   f
-                </a>
-                <a
-                  href="#"
-                  aria-label="Visit Dahal Agency on LinkedIn"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-[13px] text-slate-600 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
-                >
-                  in
-                </a>
-                <a
-                  href="#"
-                  aria-label="Visit Dahal Agency on Instagram"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-[13px] text-slate-600 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
-                >
-                  ⌾
                 </a>
               </div>
             </div>
