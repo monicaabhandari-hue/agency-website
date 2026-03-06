@@ -128,27 +128,27 @@ const geoUrl =
 function App() {
   const [status, setStatus] = useState("")
 
-const handleSubmit = async (event) => {
-  event.preventDefault()
-
-  const form = event.target
-  const data = new FormData(form)
-
-  const response = await fetch("https://formspree.io/f/xkoqnvky", {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json",
-    },
-  })
-
-  if (response.ok) {
-    setStatus("SUCCESS")
-    form.reset()
-  } else {
-    setStatus("ERROR")
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  
+    const form = event.currentTarget
+    const data = new FormData(form)
+  
+    const response = await fetch("https://formspree.io/f/xkoqnvky", {
+      method: "POST",
+      body: data,
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  
+    if (response.ok) {
+      setStatus("SUCCESS")
+      form.reset()
+    } else {
+      setStatus("ERROR")
+    }
   }
-}
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -833,7 +833,7 @@ Protection for small businesses.
                     id="interest"
                     name="interest"
  className="block w-full h-[42px] cursor-pointer rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 shadow-sm outline-none ring-sky-500/0 transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 sm:text-sm"
- default = "Life"
+ defaultValue="Life"
 >
 
 
