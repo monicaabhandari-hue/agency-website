@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 import logo from "./assets/logo.png"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import Forms from "./Forms"
+import Forms from "./forms"
 
 import aetnaLogo from "./assets/carriers/aetna.png"
 import ambetterLogo from "./assets/carriers/ambetter.png"
