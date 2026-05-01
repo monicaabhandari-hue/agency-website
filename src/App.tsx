@@ -357,7 +357,7 @@ function App() {
                   </div>
                 </section>
 
-                {/* ── Other Coverage ── */}
+                {/* ── Other Coverage ── 
                 <section id="additional" className="mt-12 sm:mt-16 space-y-4 sm:space-y-6">
                   <h2 className="text-lg sm:text-xl font-semibold text-sky-900">Other Coverage Options</h2>
                   <p className="text-sm text-slate-600 max-w-xl">Looking for auto, home, renters, or business insurance? Visit our partner platform to explore additional coverage options and get a quote.</p>
@@ -375,7 +375,7 @@ function App() {
                       </a>
                     ))}
                   </div>
-                </section>
+                </section> */}
 
                 {/* ── Coverage Map ── */}
                 <section id="coverage" aria-labelledby="coverage-title" className="mt-12 sm:mt-16 space-y-4 sm:space-y-6">
